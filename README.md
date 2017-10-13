@@ -12,7 +12,11 @@
 ### view   为web静态页面
 
 
-
+## 图片效果
+![项目列表](https://gitee.com/uploads/images/2017/1013/175827_5feb83e1_818875.png "在这里输入图片标题")
+![接口详情](https://gitee.com/uploads/images/2017/1013/175832_9911d348_818875.png "在这里输入图片标题")
+![编辑详情](https://gitee.com/uploads/images/2017/1013/175837_8d0fc424_818875.png "在这里输入图片标题")
+![接口案例](https://gitee.com/uploads/images/2017/1013/175843_5267e142_818875.png "在这里输入图片标题")
 
 
 
