@@ -68,6 +68,7 @@ class common {
             let request = ctx.request.body.request
             let response = ctx.request.body.response
             let requestjson = ctx.request.body.requestjson
+            let restype = ctx.request.body.restype
 
             if (!title || !apiUrl) {
                 ctx.body = util.result({
@@ -124,6 +125,11 @@ class common {
                     response
                 })
             }
+            if(restype){
+                arr.push({
+                    restype
+                })
+            }
 
             if (id) {
                 // 表示修改
@@ -142,7 +148,6 @@ class common {
                 })
             }
 
-            console.log(sql)
             let result = await mysql(sql)
 
             ctx.body = util.result({
@@ -208,7 +213,7 @@ class common {
 
             let sql = getsql.SELECT({
                 table: 'api',
-                fields: ['apiUrl', 'request', 'response'],
+                fields: ['apiUrl', 'request', 'response','restype'],
                 wheres: [ {projectName},{apiUrl} ]
             })
 

@@ -152,8 +152,6 @@ class common {
                 password: password
             }).paySign
 
-            console.log(secret)
-
             let sql = ""
             if (id) {
                 // 表示修改
@@ -184,7 +182,6 @@ class common {
                 })
             }
 
-            console.log(sql)
             let result = await mysql(sql)
 
             ctx.body = util.result({
@@ -279,7 +276,6 @@ class common {
                 }]
             })
 
-            console.log(sql)
             let result = await mysql(sql)
 
             ctx.body = util.result({

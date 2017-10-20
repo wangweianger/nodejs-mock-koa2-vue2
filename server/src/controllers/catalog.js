@@ -138,7 +138,6 @@ class common {
                 })
             }
 
-            console.log(sql)
             let result = await mysql(sql)
 
             ctx.body = util.result({

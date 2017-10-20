@@ -99,14 +99,15 @@ router.post('/api/temp/addTemp', checkfn, controllers.temp.addTemp)
 router.all('*', async function(ctx) {
 	let arr = ctx.request.url.split('/');
 	let projectName = arr[1];
-	let apiUrl = arr.slice(2).join('/');
-		apiUrl = apiUrl.split('?')[0];
+	let apiUrl 		= arr.slice(2).join('/');
+		apiUrl 		= apiUrl.split('?')[0];
 
-	let result = await controllers.api.getAllApiForProName(ctx, projectName,apiUrl);
-	let resultStr = result.length?result[0].response:'{}';
+	let result 		= await controllers.api.getAllApiForProName(ctx, projectName,apiUrl);
+		result 		= result[0]
+	let resultStr 	= result.restype===1?JSON.parse(result.response):result.response
 
 	ctx.body = util.result({
-		data: JSON.parse(resultStr)
+		data: resultStr
 	});
 })
 

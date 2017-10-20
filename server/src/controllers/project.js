@@ -153,7 +153,6 @@ class common {
                 })
             }
 
-            console.log(sql)
             let result = await mysql(sql)
 
             let insertId = result.insertId
