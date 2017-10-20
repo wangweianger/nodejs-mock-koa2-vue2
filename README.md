@@ -11,6 +11,9 @@
 >  * server 服务端 提供接口
 >  * view   为web静态页面
 
+## DEMO地址
+http://mock-zane.seosiwei.com/  guest账号：guest 密码：123456
+
 
 ## 图片效果
 ![项目列表](https://gitee.com/uploads/images/2017/1013/175827_5feb83e1_818875.png "在这里输入图片标题")
