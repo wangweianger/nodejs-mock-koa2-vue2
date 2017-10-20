@@ -930,6 +930,8 @@ class util {
 		copyJson = copyJson.replace(/[，]/g, ',')
 		// 替换 undefined 为字符串
 		copyJson = copyJson.replace(/["']?undefined["']?/g, '"undefined"')
+		// 替换所有}之前的，号
+		copyJson = copyJson.replace(/,\}/g, '}')
 
 		try {
 			// 若正常直接返回
@@ -965,10 +967,19 @@ class util {
 				if (Array.isArray(needJson[key])) {
 					if (needJson[key].length) {
 						if (Object.prototype.toString.call(needJson[key][0]) == '[object Object]') {
-							json1.defaultVal = "";
+							json1.defaultVal = "[{},{},...]";
 							json1.type = 'array(object)'
 							for (let i = 0, len = needJson[key].length; i < len; i++) {
-								json1.childList = this.chuliJsonToMe(needJson[key][i])
+								json1.childList[i]={
+									requestEnName:i,
+									requestCnName:`数组索引${i}`,
+									isRequired: false,
+									explain: '',
+									type: 'object',
+									isSlide:true,
+									childList:this.chuliJsonToMe(needJson[key][i]),
+									defaultVal:'{}',
+								}
 							}
 						} else {
 							json1.defaultVal = needJson[key];
@@ -979,7 +990,7 @@ class util {
 						json1.type = 'array'
 					}
 				} else {
-					json1.defaultVal = '';
+					json1.defaultVal = '{}';
 					json1.type = 'object'
 					json1.childList = this.chuliJsonToMe(needJson[key])
 				}
@@ -1002,8 +1013,11 @@ class util {
 			if (needArr[i].childList && needArr[i].childList.length) {
 				if (needArr[i].type == 'array(object)') {
 					data[needArr[i].requestEnName] = []
-					data[needArr[i].requestEnName].push(this.chuliJsonToBegin(needArr[i].childList))
 
+					if(!needArr[i].childList&&!needArr[i].childList.length) return;
+					needArr[i].childList.forEach((item,index)=>{
+						data[needArr[i].requestEnName][index]=this.chuliJsonToBegin(item.childList)
+					})
 				} else if (needArr[i].type == 'object') {
 					data[needArr[i].requestEnName] = this.chuliJsonToBegin(needArr[i].childList)
 				}

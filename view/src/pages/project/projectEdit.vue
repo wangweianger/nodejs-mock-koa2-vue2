@@ -46,12 +46,13 @@
     .add-canshu{
         font-weight:bold;
     }
+
     div.table{
         ul{
             overflow:hidden;
             border-top:solid 1px #fff;
             border-left:solid 1px #fff;
-            width:1281px;
+            width:1170px;
             &.head{
                 background:#808080;
                 line-height:30px;
@@ -73,9 +74,10 @@
                     box-shadow:none;
                 }
                 &.t1{
-                    width:220px;
+                    width:250px;
                     position:relative;
                     padding-left:40px;
+                    user-select:none;
                     .zhedie{
                         position:absolute;
                         left:5px;
@@ -83,7 +85,7 @@
                     }
                 }
                 &.t2{
-                    width:200px;
+                    width:220px;
                 }
                 &.t3{
                     width:150px;
@@ -92,13 +94,13 @@
                     width:60px;
                 }
                 &.t5{
-                    width:300px;
-                }
-                &.t6{
                     width:200px;
                 }
-                &.t7{
+                &.t6{
                     width:150px;
+                }
+                &.t7{
+                    width:130px;
                 }
             }
             &.one{
@@ -196,9 +198,39 @@
                     }
                 }
             }
+            &.six-child{
+                background:#d1f3f0;
+                border-top:none;
+                li{
+                    height:33px;
+                    .form-control{
+                        height:28px;
+                        padding: 2px 12px;
+                        background:#d1f3f0;
+                        &.english-name{
+                            padding-left:140px;
+                        }
+                    }
+                    &.t1{
+                        padding-left:200px;
+                        .zhedie{
+                            left:100px;
+                        }
+                    }
+                }
+            }
         }
     }
-
+    .reponhtml{
+        overflow:hidden;
+        textarea{
+            width:100%;
+            min-height:300px;
+            padding:10px;
+            margin-top:50px;
+            border:solid 1px #ccc;
+        }
+    }
 </style>
 
 <template>
@@ -253,7 +285,7 @@
         <div class="block mt30">
             <div class="top middlesize bold">请求参数配置 (最多支持三级展示)</div>
             <div class="bottom mt20">
-                <div class="table">
+                <div class="table request">
                     <ul class="head">
                         <li class="t1 tc bold">操作</li>
                         <li class="t2 tc bold">前端请求参数名</li>
@@ -374,114 +406,53 @@
             <div class="bottom" id="reqest">
             </div>
         </div>
+
         <hr style="margin-top:60px;">
-        <div class="block mt30">
-            <div class="top middlesize bold">返回参数配置(最多支持五级展示)</div>
-            <div class="bottom mt20">
-                <div class="table">
-                    <ul class="head">
-                        <li class="t1 tc bold">折叠</li>
-                        <li class="t2 tc bold">前端请求参数名</li>
-                        <li class="t3 tc bold">中文名</li>
-                        <li class="t5 tc bold">默认值</li>
-                        <li class="t6 tc bold">说明</li>
-                        <li class="t7 tc bold">类型</li>
-                    </ul>
-                    <div v-for="(item,i) in responseJson">
-                        <ul class="one">
-                            <li class="t1">
-                                <span class="zhedie iconfont cursor"
-                                    @click="item.isSlide=false"
-                                    v-if="item.childList&&item.childList.length&&item.isSlide"
-                                    >&#xe624;</span>
-                                <span class="zhedie iconfont cursor"
-                                    @click="item.isSlide=true"
-                                    v-if="item.childList&&item.childList.length&&!item.isSlide" >&#xe616;</span>
-                                <button class="btn btn-success btn-xs"
-                                    v-if="item.type=='array(object)'||item.type=='object'"  
-                                    @click="addItemObj(item)"><span class="iconfont">&#xe616;</span></button>
-                                <button class="btn btn-danger btn-xs" 
-                                    @click="deleteItem(responseJson,i)" 
-                                    ><span class="iconfont">&#xe605;</span></button>
-                            </li>
-                            <li class="t2"><input type="text" class="form-control english-name" v-model="item.requestEnName" placeholder="参数名"></li>
-                            <li class="t3"><input type="text" class="form-control" v-model="item.requestCnName" placeholder="参数中文名"></li>
-                            <li class="t5"><input type="text" class="form-control" v-model="item.defaultVal" placeholder="参数的默认值"></li>
-                            <li class="t6">
-                                <textarea class="form-control" v-model="item.explain" rows="1" placeholder="参数说明"></textarea>
-                            </li>
-                            <li class="t7">
-                                <select class="form-control" v-model="item.type" >
-                                    <option value="int">int</option>
-                                    <option value="string">string</option>
-                                    <option value="boolean">boolean</option>
-                                    <option value="null">null</option>
-                                    <option value="undefined">undefined</option>
-                                    <option value="array">array</option>
-                                    <option value="array(object)">array(object)</option>
-                                    <option value="object">object</option>
-                                </select>
-                            </li>
-                        </ul>
-                        <div v-show="item.isSlide" v-if="item.childList&&item.childList.length" v-for="(item1,i1) in item.childList">
-                            <ul class="child">
-                                <li class="t1">
-                                    <span class="zhedie iconfont cursor"
-                                        @click="item1.isSlide=false"
-                                        v-if="item1.childList&&item1.childList.length&&item1.isSlide"
-                                        >&#xe624;</span>
-                                    <span class="zhedie iconfont cursor"
-                                        @click="item1.isSlide=true"
-                                        v-if="item1.childList&&item1.childList.length&&!item1.isSlide" >&#xe616;</span>
-                                    <button class="btn btn-success btn-xs"
-                                        v-if="item1.type=='array(object)'||item1.type=='object'"  
-                                        @click="addItemObj(item1)"><span class="iconfont">&#xe616;</span></button>
-                                    <button class="btn btn-danger btn-xs" 
-                                        @click="deleteItem(item.childList,i1)"><span  class="iconfont">&#xe605;</span></button>
-                                </li>
-                                <li class="t2"><input type="text" class="form-control english-name" v-model="item1.requestEnName" placeholder="参数名"></li>
-                                <li class="t3"><input type="text" class="form-control" v-model="item1.requestCnName" placeholder="参数中文名"></li>
-                                <li class="t5"><input type="text" class="form-control" v-model="item1.defaultVal" placeholder="参数的默认值"></li>
-                                <li class="t6">
-                                    <textarea class="form-control" v-model="item1.explain" rows="1" placeholder="参数说明"></textarea>
-                                </li>
-                                <li class="t7">
-                                    <select class="form-control" v-model="item1.type">
-                                        <option value="int">int</option>
-                                        <option value="string">string</option>
-                                        <option value="boolean">boolean</option>
-                                        <option value="null">null</option>
-                                        <option value="undefined">undefined</option>
-                                        <option value="array">array</option>
-                                        <option value="array(object)">array(object)</option>
-                                        <option value="object">object</option>
-                                    </select>
-                                </li>
+        <!-- 返回类型是JSON 还是html|xml -->
+        <div class="restype tc">
+            <button class="btn btn-default" :class="{'btn-danger':restype===1?true:false}" @click="restype=1">返回JSON类型</button>
+            <button class="btn btn-default" :class="{'btn-danger':restype===2?true:false}" @click="restype=2">返回其他类型(HTML/XML)</button>
+        </div>
+        
+        <div class="response"> 
+            <div class="reponjson" v-if="restype === 1">
+                <div class="block mt30">
+                    <div class="top middlesize bold">返回参数配置(最多支持五级展示)</div>
+                    <div class="bottom mt20">
+                        <div class="table">
+                            <ul class="head">
+                                <li class="t1 tc bold response">折叠</li>
+                                <li class="t2 tc bold">前端请求参数名</li>
+                                <li class="t3 tc bold">中文名</li>
+                                <li class="t5 tc bold">默认值</li>
+                                <li class="t6 tc bold">说明</li>
+                                <li class="t7 tc bold">类型</li>
                             </ul>
-                            <div v-show="item1.isSlide" v-if="item1.childList&&item1.childList.length" v-for="(item2,i2) in item1.childList">
-                                <ul class="three-child" >
+                            <div v-for="(item,i) in responseJson">
+                                <ul class="one">
                                     <li class="t1">
                                         <span class="zhedie iconfont cursor"
-                                            @click="item2.isSlide=false"
-                                            v-if="item2.childList&&item2.childList.length&&item2.isSlide"
+                                            @click="item.isSlide=false"
+                                            v-if="item.childList&&item.childList.length&&item.isSlide"
                                             >&#xe624;</span>
                                         <span class="zhedie iconfont cursor"
-                                            @click="item2.isSlide=true"
-                                            v-if="item2.childList&&item2.childList.length&&!item2.isSlide" >&#xe616;</span>
+                                            @click="item.isSlide=true"
+                                            v-if="item.childList&&item.childList.length&&!item.isSlide" >&#xe616;</span>
                                         <button class="btn btn-success btn-xs"
-                                            v-if="item2.type=='array(object)'||item2.type=='object'"  
-                                            @click="addItemObj(item2)"><span class="iconfont">&#xe616;</span></button>
+                                            v-if="item.type=='array(object)'||item.type=='object'"  
+                                            @click="addItemObj(item)"><span class="iconfont">&#xe616;</span></button>
                                         <button class="btn btn-danger btn-xs" 
-                                            @click="deleteItem(item1.childList,i2)"><span class="iconfont">&#xe605;</span></button>
+                                            @click="deleteItem(responseJson,i)" 
+                                            ><span class="iconfont">&#xe605;</span></button>
                                     </li>
-                                    <li class="t2"><input type="text" class="form-control english-name" v-model="item2.requestEnName" placeholder="参数名"></li>
-                                    <li class="t3"><input type="text" class="form-control" v-model="item2.requestCnName" placeholder="参数中文名"></li>
-                                    <li class="t5"><input type="text" class="form-control" v-model="item2.defaultVal" placeholder="参数的默认值"></li>
+                                    <li class="t2"><input type="text" class="form-control english-name" v-model="item.requestEnName" placeholder="参数名"></li>
+                                    <li class="t3"><input type="text" class="form-control" v-model="item.requestCnName" placeholder="参数中文名"></li>
+                                    <li class="t5"><input type="text" class="form-control" v-model="item.defaultVal" placeholder="参数的默认值"></li>
                                     <li class="t6">
-                                        <textarea class="form-control" v-model="item2.explain" rows="1" placeholder="参数说明"></textarea>
+                                        <textarea class="form-control" v-model="item.explain" rows="1" placeholder="参数说明"></textarea>
                                     </li>
                                     <li class="t7">
-                                        <select class="form-control" v-model="item2.type">
+                                        <select class="form-control" v-model="item.type" >
                                             <option value="int">int</option>
                                             <option value="string">string</option>
                                             <option value="boolean">boolean</option>
@@ -493,79 +464,194 @@
                                         </select>
                                     </li>
                                 </ul>
-                                <div v-show="item2.isSlide" v-if="item2.childList&&item2.childList.length" v-for="(item3,i3) in item2.childList">
-                                    <ul class="four-child" >
-                                        <li class="t1">
-                                            <span class="zhedie iconfont cursor"
-                                                @click="item3.isSlide=false"
-                                                v-if="item3.childList&&item3.childList.length&&item3.isSlide"
-                                                >&#xe624;</span>
-                                            <span class="zhedie iconfont cursor"
-                                                @click="item3.isSlide=true"
-                                                v-if="item3.childList&&item3.childList.length&&!item3.isSlide" >&#xe616;</span>
-                                            <button class="btn btn-success btn-xs"
-                                                v-if="item3.type=='array(object)'||item3.type=='object'"  
-                                                @click="addItemObj(item3)"><span class="iconfont">&#xe616;</span></button>
-                                            <button class="btn btn-danger btn-xs" 
-                                                @click="deleteItem(item2.childList,i3)"><span class="iconfont">&#xe605;</span></button>
-                                        </li>
-                                        <li class="t2"><input type="text" class="form-control english-name" v-model="item3.requestEnName" placeholder="参数名"></li>
-                                        <li class="t3"><input type="text" class="form-control" v-model="item3.requestCnName" placeholder="参数中文名"></li>
-                                        <li class="t5"><input type="text" class="form-control" v-model="item3.defaultVal" placeholder="参数的默认值"></li>
-                                        <li class="t6">
-                                            <textarea class="form-control" v-model="item3.explain" rows="1" placeholder="参数说明"></textarea>
-                                        </li>
-                                        <li class="t7">
-                                            <select class="form-control" v-model="item3.type">
-                                                <option value="int">int</option>
-                                                <option value="string">string</option>
-                                                <option value="boolean">boolean</option>
-                                                <option value="null">null</option>
-                                                <option value="undefined">undefined</option>
-                                                <option value="array">array</option>
-                                                <option value="array(object)">array(object)</option>
-                                                <option value="object">object</option>
-                                            </select>
-                                        </li>
-                                    </ul>
-                                    <ul class="five-child" v-show="item3.isSlide" v-if="item3.childList&&item3.childList.length" v-for="(item4,i3) in item3.childList">
-                                        <li class="t1">
-                                            <button class="btn btn-danger btn-xs" 
-                                                @click="deleteItem(item3.childList,i3)"><span class="iconfont">&#xe605;</span></button>
-                                        </li>
-                                        <li class="t2"><input type="text" class="form-control english-name" v-model="item4.requestEnName" placeholder="参数名"></li>
-                                        <li class="t3"><input type="text" class="form-control" v-model="item4.requestCnName" placeholder="参数中文名"></li>
-                                        <li class="t5"><input type="text" class="form-control" v-model="item4.defaultVal" placeholder="参数的默认值"></li>
-                                        <li class="t6">
-                                            <textarea class="form-control" v-model="item4.explain" rows="1" placeholder="参数说明"></textarea>
-                                        </li>
-                                        <li class="t7">
-                                            <select class="form-control" v-model="item4.type">
-                                                <option value="int">int</option>
-                                                <option value="string">string</option>
-                                                <option value="boolean">boolean</option>
-                                                <option value="null">null</option>
-                                                <option value="undefined">undefined</option>
-                                                <option value="array">array</option>
-                                                <option value="array(object)">array(object)</option>
-                                                <option value="object">object</option>
-                                            </select>
-                                        </li>
-                                    </ul>
+                                <div v-show="item.isSlide" v-if="item.childList&&item.childList.length" v-for="(item1,i1) in item.childList">
+                                        <ul class="child" v-if="!item1.length">
+                                            <li class="t1">
+                                                <span class="zhedie iconfont cursor"
+                                                    @click="item1.isSlide=false"
+                                                    v-if="item1.childList&&item1.childList.length&&item1.isSlide"
+                                                    >&#xe624;</span>
+                                                <span class="zhedie iconfont cursor"
+                                                    @click="item1.isSlide=true"
+                                                    v-if="item1.childList&&item1.childList.length&&!item1.isSlide" >&#xe616;</span>
+                                                <button class="btn btn-success btn-xs"
+                                                    v-if="item1.type=='array(object)'||item1.type=='object'"  
+                                                    @click="addItemObj(item1)"><span class="iconfont">&#xe616;</span></button>
+                                                <button class="btn btn-danger btn-xs" 
+                                                    @click="deleteItem(item.childList,i1)"><span  class="iconfont">&#xe605;</span></button>
+                                            </li>
+                                            <li class="t2"><input type="text" class="form-control english-name" v-model="item1.requestEnName" placeholder="参数名"></li>
+                                            <li class="t3"><input type="text" class="form-control" v-model="item1.requestCnName" placeholder="参数中文名"></li>
+                                            <li class="t5"><input type="text" class="form-control" v-model="item1.defaultVal" placeholder="参数的默认值"></li>
+                                            <li class="t6">
+                                                <textarea class="form-control" v-model="item1.explain" rows="1" placeholder="参数说明"></textarea>
+                                            </li>
+                                            <li class="t7">
+                                                <select class="form-control" v-model="item1.type">
+                                                    <option value="int">int</option>
+                                                    <option value="string">string</option>
+                                                    <option value="boolean">boolean</option>
+                                                    <option value="null">null</option>
+                                                    <option value="undefined">undefined</option>
+                                                    <option value="array">array</option>
+                                                    <option value="array(object)">array(object)</option>
+                                                    <option value="object">object</option>
+                                                </select>
+                                            </li>
+                                        </ul>
+                                        <div v-show="item1.isSlide" v-if="item1.childList&&item1.childList.length" v-for="(item2,i2) in item1.childList">
+                                            <ul class="three-child" >
+                                                <li class="t1">
+                                                    <span class="zhedie iconfont cursor"
+                                                        @click="item2.isSlide=false"
+                                                        v-if="item2.childList&&item2.childList.length&&item2.isSlide"
+                                                        >&#xe624;</span>
+                                                    <span class="zhedie iconfont cursor"
+                                                        @click="item2.isSlide=true"
+                                                        v-if="item2.childList&&item2.childList.length&&!item2.isSlide" >&#xe616;</span>
+                                                    <button class="btn btn-success btn-xs"
+                                                        v-if="item2.type=='array(object)'||item2.type=='object'"  
+                                                        @click="addItemObj(item2)"><span class="iconfont">&#xe616;</span></button>
+                                                    <button class="btn btn-danger btn-xs" 
+                                                        @click="deleteItem(item1.childList,i2)"><span class="iconfont">&#xe605;</span></button>
+                                                </li>
+                                                <li class="t2"><input type="text" class="form-control english-name" v-model="item2.requestEnName" placeholder="参数名"></li>
+                                                <li class="t3"><input type="text" class="form-control" v-model="item2.requestCnName" placeholder="参数中文名"></li>
+                                                <li class="t5"><input type="text" class="form-control" v-model="item2.defaultVal" placeholder="参数的默认值"></li>
+                                                <li class="t6">
+                                                    <textarea class="form-control" v-model="item2.explain" rows="1" placeholder="参数说明"></textarea>
+                                                </li>
+                                                <li class="t7">
+                                                    <select class="form-control" v-model="item2.type">
+                                                        <option value="int">int</option>
+                                                        <option value="string">string</option>
+                                                        <option value="boolean">boolean</option>
+                                                        <option value="null">null</option>
+                                                        <option value="undefined">undefined</option>
+                                                        <option value="array">array</option>
+                                                        <option value="array(object)">array(object)</option>
+                                                        <option value="object">object</option>
+                                                    </select>
+                                                </li>
+                                            </ul>
+                                            <div v-show="item2.isSlide" v-if="item2.childList&&item2.childList.length" v-for="(item3,i3) in item2.childList">
+                                                <ul class="four-child" >
+                                                    <li class="t1">
+                                                        <span class="zhedie iconfont cursor"
+                                                            @click="item3.isSlide=false"
+                                                            v-if="item3.childList&&item3.childList.length&&item3.isSlide"
+                                                            >&#xe624;</span>
+                                                        <span class="zhedie iconfont cursor"
+                                                            @click="item3.isSlide=true"
+                                                            v-if="item3.childList&&item3.childList.length&&!item3.isSlide" >&#xe616;</span>
+                                                        <button class="btn btn-success btn-xs"
+                                                            v-if="item3.type=='array(object)'||item3.type=='object'"  
+                                                            @click="addItemObj(item3)"><span class="iconfont">&#xe616;</span></button>
+                                                        <button class="btn btn-danger btn-xs" 
+                                                            @click="deleteItem(item2.childList,i3)"><span class="iconfont">&#xe605;</span></button>
+                                                    </li>
+                                                    <li class="t2"><input type="text" class="form-control english-name" v-model="item3.requestEnName" placeholder="参数名"></li>
+                                                    <li class="t3"><input type="text" class="form-control" v-model="item3.requestCnName" placeholder="参数中文名"></li>
+                                                    <li class="t5"><input type="text" class="form-control" v-model="item3.defaultVal" placeholder="参数的默认值"></li>
+                                                    <li class="t6">
+                                                        <textarea class="form-control" v-model="item3.explain" rows="1" placeholder="参数说明"></textarea>
+                                                    </li>
+                                                    <li class="t7">
+                                                        <select class="form-control" v-model="item3.type">
+                                                            <option value="int">int</option>
+                                                            <option value="string">string</option>
+                                                            <option value="boolean">boolean</option>
+                                                            <option value="null">null</option>
+                                                            <option value="undefined">undefined</option>
+                                                            <option value="array">array</option>
+                                                            <option value="array(object)">array(object)</option>
+                                                            <option value="object">object</option>
+                                                        </select>
+                                                    </li>
+                                                </ul>
+                                                <div v-show="item3.isSlide" v-if="item3.childList&&item3.childList.length" v-for="(item4,i4) in item3.childList">
+                                                    <ul class="five-child">
+                                                        <li class="t1">
+                                                            <span class="zhedie iconfont cursor"
+                                                                @click="item4.isSlide=false"
+                                                                v-if="item4.childList&&item4.childList.length&&item4.isSlide"
+                                                                >&#xe624;</span>
+                                                            <span class="zhedie iconfont cursor"
+                                                                @click="item4.isSlide=true"
+                                                                v-if="item4.childList&&item4.childList.length&&!item4.isSlide" >&#xe616;</span>
+                                                            <button class="btn btn-success btn-xs"
+                                                                v-if="item4.type=='array(object)'||item4.type=='object'"  
+                                                                @click="addItemObj(item4)"><span class="iconfont">&#xe616;</span></button>
+                                                            <button class="btn btn-danger btn-xs" 
+                                                                @click="deleteItem(item3.childList,i4)"><span class="iconfont">&#xe605;</span></button>
+                                                        </li>
+                                                        <li class="t2"><input type="text" class="form-control english-name" v-model="item4.requestEnName" placeholder="参数名"></li>
+                                                        <li class="t3"><input type="text" class="form-control" v-model="item4.requestCnName" placeholder="参数中文名"></li>
+                                                        <li class="t5"><input type="text" class="form-control" v-model="item4.defaultVal" placeholder="参数的默认值"></li>
+                                                        <li class="t6">
+                                                            <textarea class="form-control" v-model="item4.explain" rows="1" placeholder="参数说明"></textarea>
+                                                        </li>
+                                                        <li class="t7">
+                                                            <select class="form-control" v-model="item4.type">
+                                                                <option value="int">int</option>
+                                                                <option value="string">string</option>
+                                                                <option value="boolean">boolean</option>
+                                                                <option value="null">null</option>
+                                                                <option value="undefined">undefined</option>
+                                                                <option value="array">array</option>
+                                                                <option value="array(object)">array(object)</option>
+                                                                <option value="object">object</option>
+                                                            </select>
+                                                        </li>
+                                                    </ul>
+                                                    <div v-show="item4.isSlide" v-if="item4.childList&&item4.childList.length" v-for="(item5,i5) in item4.childList">
+                                                        <ul class="six-child">
+                                                            <li class="t1">
+                                                                <button class="btn btn-danger btn-xs" 
+                                                                    @click="deleteItem(item4.childList,i5)"><span class="iconfont">&#xe605;</span></button>
+                                                            </li>
+                                                            <li class="t2"><input type="text" class="form-control english-name" v-model="item5.requestEnName" placeholder="参数名"></li>
+                                                            <li class="t3"><input type="text" class="form-control" v-model="item5.requestCnName" placeholder="参数中文名"></li>
+                                                            <li class="t5"><input type="text" class="form-control" v-model="item5.defaultVal" placeholder="参数的默认值"></li>
+                                                            <li class="t6">
+                                                                <textarea class="form-control" v-model="item5.explain" rows="1" placeholder="参数说明"></textarea>
+                                                            </li>
+                                                            <li class="t7">
+                                                                <select class="form-control" v-model="item5.type">
+                                                                    <option value="int">int</option>
+                                                                    <option value="string">string</option>
+                                                                    <option value="boolean">boolean</option>
+                                                                    <option value="null">null</option>
+                                                                    <option value="undefined">undefined</option>
+                                                                    <option value="array">array</option>
+                                                                    <option value="array(object)">array(object)</option>
+                                                                    <option value="object">object</option>
+                                                                </select>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="btn btn-default btn-sm mt15 add-canshu" @click="addCanshu('res')"><span class="iconfont">&#xe616;</span>增加参数</div>
+                        <span class="btn btn-success ml20 mt15" @click="viewJson('res')">JSON转参数表格</span>
                     </div>
                 </div>
-                <div class="btn btn-default btn-sm mt15 add-canshu" @click="addCanshu('res')"><span class="iconfont">&#xe616;</span>增加参数</div>
-                <span class="btn btn-success ml20 mt15" @click="viewJson('res')">JSON转参数表格</span>
+                <div class="block">
+                    <div class="top middlesize mb10 bold">返回参数对应JSON</div>
+                    <div class="bottom" id="response">
+                    </div>
+                </div>
+            </div>
+            <div class="reponhtml" v-if="restype === 2">
+                <div class="top middlesize bold">返回参数配置</div>
+                <textarea placeholder="填写需要返回的内容" v-model="edit.response"></textarea>
             </div>
         </div>
-        <div class="block">
-            <div class="top middlesize mb10 bold">返回参数对应JSON</div>
-            <div class="bottom" id="response">
-            </div>
-        </div>
+
         <div class="block">
             <div class="top middlesize mb10 bold">其他说明详情</div>
             <div class="bottom" id="reqest">
@@ -672,6 +758,7 @@
                 },
                 datas:{},
                 getApi:'',
+                restype:1, //json:1 | html:2
             }
         },
         watch:{
@@ -748,12 +835,14 @@
                         if(this.datas.request){
                             this.requestJs=JSON.parse(this.datas.request)
                         }
-                        if(this.datas.response){
+                        if(this.datas.response&&this.datas.restype===1){
                             this.responseJs=JSON.parse(this.datas.response)
+                            this.responseJson = util.chuliJsonToMe(this.responseJs); 
+                        }else{
+                            this.edit.response=this.datas.response
                         }
                         this.requestJson = util.chuliJsonToMe(this.requestJs);
-                        this.responseJson = util.chuliJsonToMe(this.responseJs); 
-
+                        
                         this.edit.id=this.datas.id
                         this.edit.title=this.datas.title
                         this.edit.twoCatalogId=this.datas.twoCatalogId
@@ -764,6 +853,7 @@
                         this.edit.apiUrl=this.datas.apiUrl
                         this.edit.type=this.datas.type
                         this.edit.briefDesc=this.datas.briefDesc
+                        this.restype = this.datas.restype
                     }
                 })
             },
@@ -803,6 +893,7 @@
                     try{
                         let newJson = util.toJson(this.requestStr)
                         let json = JSON.parse(newJson)
+
                         if(this.addJSONtype=='req'){
                             this.requestJson = util.chuliJsonToMe(json);
                         }else{
@@ -838,6 +929,9 @@
                     popup.alert({title:'请填写API地址!'}); return false;
                 };
 
+                let response=null;
+                response = this.restype===1?JSON.stringify(util.chuliJsonToBegin(this.responseJson)):this.edit.response;
+
                 let json={
                     id:this.edit.id,
                     title:this.edit.title,
@@ -851,7 +945,8 @@
                     briefDesc:this.edit.briefDesc,
                     requestjson:JSON.stringify(this.requestJson).replace(/'/g,'"'),
                     request:JSON.stringify(util.chuliJsonToBegin(this.requestJson)),
-                    response: JSON.stringify(util.chuliJsonToBegin(this.responseJson)),
+                    response: response,
+                    restype:this.restype
                 }
                 util.ajax({
                     url:config.baseApi+'api/api/editApiDetail',

@@ -37,7 +37,7 @@
             overflow:hidden;
             border-top:solid 1px #fff;
             border-left:solid 1px #fff;
-            width:1181px;
+            width:1120px;
             &.head{
                 background:#808080;
                 line-height:30px;
@@ -59,9 +59,10 @@
                     box-shadow:none;
                 }
                 &.t1{
-                    width:120px;
+                    width:200px;
                     position:relative;
                     padding-left:40px;
+                    user-select:none;
                     .zhedie{
                         position:absolute;
                         left:5px;
@@ -69,7 +70,7 @@
                     }
                 }
                 &.t2{
-                    width:200px;
+                    width:220px;
                 }
                 &.t3{
                     width:150px;
@@ -78,13 +79,13 @@
                     width:60px;
                 }
                 &.t5{
-                    width:300px;
-                }
-                &.t6{
                     width:200px;
                 }
-                &.t7{
+                &.t6{
                     width:150px;
+                }
+                &.t7{
+                    width:130px;
                 }
             }
             &.one{
@@ -112,6 +113,7 @@
                         }
                     }
                     &.t1{
+                        padding-left:73px;
                         .zhedie{
                             left:35px;
                         }
@@ -132,8 +134,9 @@
                         }
                     }
                     &.t1{
+                        padding-left:105px;
                         .zhedie{
-                            left:70px;
+                            left:65px;
                         }
                     }
                 }
@@ -152,8 +155,9 @@
                         }
                     }
                     &.t1{
+                        padding-left:137px;
                         .zhedie{
-                            left:90px;
+                            left:95px;
                         }
                     }
                 }
@@ -172,15 +176,46 @@
                         }
                     }
                     &.t1{
+                        padding-left:168px;
                         .zhedie{
-                            left:110px;
+                            left:115px;
+                        }
+                    }
+                }
+            }
+            &.six-child{
+                background:#d1f3f0;
+                border-top:none;
+                li{
+                    height:33px;
+                    .form-control{
+                        height:28px;
+                        padding: 2px 12px;
+                        background:#d1f3f0;
+                        &.english-name{
+                            padding-left:140px;
+                        }
+                    }
+                    &.t1{
+                        .zhedie{
+                            left:145px;
                         }
                     }
                 }
             }
         }
     }
-    
+    .reshtml{
+        textarea{
+            width:100%;
+            padding:10px;
+            min-height:300px;
+            margin-top:30px; 
+            background:#f6f5f6;
+            border:solid 1px #ccc;
+            color:#000; 
+        }
+    }
 </style>
 
 <template>
@@ -234,15 +269,15 @@
                                     @click="item.isSlide=true"
                                     v-if="item.childList&&item.childList.length&&!item.isSlide" >&#xe616;</span>
                             </li>
-                            <li class="t2"><input type="text" class="form-control english-name" v-model="item.requestEnName" placeholder="参数名"></li>
-                            <li class="t3"><input type="text" class="form-control" v-model="item.requestCnName" placeholder="参数中文名"></li>
-                            <li class="t4 tc"><input type="checkbox" v-model="item.isRequired"></li>
-                            <li class="t5"><input type="text" class="form-control" v-model="item.defaultVal" placeholder="参数的默认值"></li>
+                            <li class="t2"><input readonly="true" type="text" class="form-control english-name" v-model="item.requestEnName" placeholder="参数名"></li>
+                            <li class="t3"><input readonly="true" type="text" class="form-control" v-model="item.requestCnName" placeholder="参数中文名"></li>
+                            <li class="t4 tc"><input readonly="true" type="checkbox" v-model="item.isRequired"></li>
+                            <li class="t5"><input readonly="true" type="text" class="form-control" v-model="item.defaultVal" placeholder="参数的默认值"></li>
                             <li class="t6">
-                                <textarea class="form-control" v-model="item.explain" rows="1" placeholder="参数说明"></textarea>
+                                <textarea readonly="true" class="form-control" v-model="item.explain" rows="1" placeholder="参数说明"></textarea>
                             </li>
                             <li class="t7">
-                                <select class="form-control" v-model="item.type" >
+                                <select disabled="true" class="form-control" v-model="item.type" >
                                     <option value="int">int</option>
                                     <option value="string">string</option>
                                     <option value="boolean">boolean</option>
@@ -265,15 +300,15 @@
                                         @click="item1.isSlide=true"
                                         v-if="item1.childList&&item1.childList.length&&!item1.isSlide" >&#xe616;</span>
                                 </li>
-                                <li class="t2"><input type="text" class="form-control english-name" v-model="item1.requestEnName" placeholder="参数名"></li>
-                                <li class="t3"><input type="text" class="form-control" v-model="item1.requestCnName" placeholder="参数中文名"></li>
-                                <li class="t4 tc"><input type="checkbox" v-model="item1.isRequired" ></li>
-                                <li class="t5"><input type="text" class="form-control" v-model="item1.defaultVal" placeholder="参数的默认值"></li>
+                                <li class="t2"><input readonly="true" type="text" class="form-control english-name" v-model="item1.requestEnName" placeholder="参数名"></li>
+                                <li class="t3"><input readonly="true" type="text" class="form-control" v-model="item1.requestCnName" placeholder="参数中文名"></li>
+                                <li class="t4 tc"><input readonly="true" type="checkbox" v-model="item1.isRequired" ></li>
+                                <li class="t5"><input readonly="true" type="text" class="form-control" v-model="item1.defaultVal" placeholder="参数的默认值"></li>
                                 <li class="t6">
-                                    <textarea class="form-control" v-model="item1.explain" rows="1" placeholder="参数说明"></textarea>
+                                    <textarea readonly="true" class="form-control" v-model="item1.explain" rows="1" placeholder="参数说明"></textarea>
                                 </li>
                                 <li class="t7">
-                                    <select class="form-control" v-model="item1.type">
+                                    <select disabled="true" class="form-control" v-model="item1.type">
                                         <option value="int">int</option>
                                         <option value="string">string</option>
                                         <option value="boolean">boolean</option>
@@ -289,15 +324,15 @@
                                 <li class="t1">
                                     
                                 </li>
-                                <li class="t2"><input type="text" class="form-control english-name" v-model="item2.requestEnName" placeholder="参数名"></li>
-                                <li class="t3"><input type="text" class="form-control" v-model="item2.requestCnName" placeholder="参数中文名"></li>
-                                <li class="t4 tc"><input type="checkbox" v-model="item2.isRequired" ></li>
-                                <li class="t5"><input type="text" class="form-control" v-model="item2.defaultVal" placeholder="参数的默认值"></li>
+                                <li class="t2"><input readonly="true" type="text" class="form-control english-name" v-model="item2.requestEnName" placeholder="参数名"></li>
+                                <li class="t3"><input readonly="true" type="text" class="form-control" v-model="item2.requestCnName" placeholder="参数中文名"></li>
+                                <li class="t4 tc"><input readonly="true" type="checkbox" v-model="item2.isRequired" ></li>
+                                <li class="t5"><input readonly="true" type="text" class="form-control" v-model="item2.defaultVal" placeholder="参数的默认值"></li>
                                 <li class="t6">
-                                    <textarea class="form-control" v-model="item2.explain" rows="1" placeholder="参数说明"></textarea>
+                                    <textarea readonly="true" class="form-control" v-model="item2.explain" rows="1" placeholder="参数说明"></textarea>
                                 </li>
                                 <li class="t7">
-                                    <select class="form-control" v-model="item2.type">
+                                    <select disabled="true" class="form-control" v-model="item2.type">
                                         <option value="int">int</option>
                                         <option value="string">string</option>
                                         <option value="boolean">boolean</option>
@@ -320,97 +355,39 @@
         </div>
     </div>
     <hr style="margin-top:60px;">
-    <div class="block mt30">
-        <div class="top middlesize bold">返回参数配置</div>
-        <div class="bottom mt20">
-            <div class="table">
-                <ul class="head">
-                    <li class="t1 tc bold">折叠</li>
-                    <li class="t2 tc bold">前端请求参数名</li>
-                    <li class="t3 tc bold">中文名</li>
-                    <li class="t5 tc bold">默认值</li>
-                    <li class="t6 tc bold">说明</li>
-                    <li class="t7 tc bold">类型</li>
-                </ul>
-                <div v-for="(item,i) in responseJson">
-                    <ul class="one">
-                        <li class="t1">
-                            <span class="zhedie iconfont cursor"
-                                @click="item.isSlide=false"
-                                v-if="item.childList&&item.childList.length&&item.isSlide"
-                                >&#xe624;</span>
-                            <span class="zhedie iconfont cursor"
-                                @click="item.isSlide=true"
-                                v-if="item.childList&&item.childList.length&&!item.isSlide" >&#xe616;</span>
-                        </li>
-                        <li class="t2"><input type="text" class="form-control english-name" v-model="item.requestEnName" placeholder="参数名"></li>
-                        <li class="t3"><input type="text" class="form-control" v-model="item.requestCnName" placeholder="参数中文名"></li>
-                        <li class="t5"><input type="text" class="form-control" v-model="item.defaultVal" placeholder="参数的默认值"></li>
-                        <li class="t6">
-                            <textarea class="form-control" v-model="item.explain" rows="1" placeholder="参数说明"></textarea>
-                        </li>
-                        <li class="t7">
-                            <select class="form-control" v-model="item.type" >
-                                <option value="int">int</option>
-                                <option value="string">string</option>
-                                <option value="boolean">boolean</option>
-                                <option value="null">null</option>
-                                <option value="undefined">undefined</option>
-                                <option value="array">array</option>
-                                <option value="array(object)">array(object)</option>
-                                <option value="object">object</option>
-                            </select>
-                        </li>
-                    </ul>
-                    <div v-show="item.isSlide" v-if="item.childList&&item.childList.length" v-for="(item1,i1) in item.childList">
-                        <ul class="child">
-                            <li class="t1">
-                                <span class="zhedie iconfont cursor"
-                                    @click="item1.isSlide=false"
-                                    v-if="item1.childList&&item1.childList.length&&item1.isSlide"
-                                    >&#xe624;</span>
-                                <span class="zhedie iconfont cursor"
-                                    @click="item1.isSlide=true"
-                                    v-if="item1.childList&&item1.childList.length&&!item1.isSlide" >&#xe616;</span>
-                            </li>
-                            <li class="t2"><input type="text" class="form-control english-name" v-model="item1.requestEnName" placeholder="参数名"></li>
-                            <li class="t3"><input type="text" class="form-control" v-model="item1.requestCnName" placeholder="参数中文名"></li>
-                            <li class="t5"><input type="text" class="form-control" v-model="item1.defaultVal" placeholder="参数的默认值"></li>
-                            <li class="t6">
-                                <textarea class="form-control" v-model="item1.explain" rows="1" placeholder="参数说明"></textarea>
-                            </li>
-                            <li class="t7">
-                                <select class="form-control" v-model="item1.type">
-                                    <option value="int">int</option>
-                                    <option value="string">string</option>
-                                    <option value="boolean">boolean</option>
-                                    <option value="null">null</option>
-                                    <option value="undefined">undefined</option>
-                                    <option value="array">array</option>
-                                    <option value="array(object)">array(object)</option>
-                                    <option value="object">object</option>
-                                </select>
-                            </li>
+    <div>
+        <div class="resjson" v-if="datas.restype===1">
+            <div class="block mt30">
+                <div class="top middlesize bold">返回参数详情</div>
+                <div class="bottom mt20">
+                    <div class="table">
+                        <ul class="head">
+                            <li class="t1 tc bold">折叠</li>
+                            <li class="t2 tc bold">前端请求参数名</li>
+                            <li class="t3 tc bold">中文名</li>
+                            <li class="t5 tc bold">默认值</li>
+                            <li class="t6 tc bold">说明</li>
+                            <li class="t7 tc bold">类型</li>
                         </ul>
-                        <div v-show="item1.isSlide" v-if="item1.childList&&item1.childList.length" v-for="(item2,i2) in item1.childList">
-                            <ul class="three-child" >
+                        <div v-for="(item,i) in responseJson">
+                            <ul class="one">
                                 <li class="t1">
                                     <span class="zhedie iconfont cursor"
-                                        @click="item2.isSlide=false"
-                                        v-if="item2.childList&&item2.childList.length&&item2.isSlide"
+                                        @click="item.isSlide=false"
+                                        v-if="item.childList&&item.childList.length&&item.isSlide"
                                         >&#xe624;</span>
                                     <span class="zhedie iconfont cursor"
-                                        @click="item2.isSlide=true"
-                                        v-if="item2.childList&&item2.childList.length&&!item2.isSlide" >&#xe616;</span>
+                                        @click="item.isSlide=true"
+                                        v-if="item.childList&&item.childList.length&&!item.isSlide" >&#xe616;</span>
                                 </li>
-                                <li class="t2"><input type="text" class="form-control english-name" v-model="item2.requestEnName" placeholder="参数名"></li>
-                                <li class="t3"><input type="text" class="form-control" v-model="item2.requestCnName" placeholder="参数中文名"></li>
-                                <li class="t5"><input type="text" class="form-control" v-model="item2.defaultVal" placeholder="参数的默认值"></li>
+                                <li class="t2"><input readonly="true" type="text" class="form-control english-name" v-model="item.requestEnName" placeholder="参数名"></li>
+                                <li class="t3"><input readonly="true" type="text" class="form-control" v-model="item.requestCnName" placeholder="参数中文名"></li>
+                                <li class="t5"><input readonly="true" type="text" class="form-control" v-model="item.defaultVal" placeholder="参数的默认值"></li>
                                 <li class="t6">
-                                    <textarea class="form-control" v-model="item2.explain" rows="1" placeholder="参数说明"></textarea>
+                                    <textarea readonly="true" class="form-control" v-model="item.explain" rows="1" placeholder="参数说明"></textarea>
                                 </li>
                                 <li class="t7">
-                                    <select class="form-control" v-model="item2.type">
+                                    <select disabled="true" class="form-control" v-model="item.type" >
                                         <option value="int">int</option>
                                         <option value="string">string</option>
                                         <option value="boolean">boolean</option>
@@ -422,25 +399,25 @@
                                     </select>
                                 </li>
                             </ul>
-                            <div v-show="item2.isSlide" v-if="item2.childList&&item2.childList.length" v-for="(item3,i3) in item2.childList">
-                                <ul class="four-child" >
+                            <div v-show="item.isSlide" v-if="item.childList&&item.childList.length" v-for="(item1,i1) in item.childList">
+                                <ul class="child">
                                     <li class="t1">
                                         <span class="zhedie iconfont cursor"
-                                            @click="item3.isSlide=false"
-                                            v-if="item3.childList&&item3.childList.length&&item3.isSlide"
+                                            @click="item1.isSlide=false"
+                                            v-if="item1.childList&&item1.childList.length&&item1.isSlide"
                                             >&#xe624;</span>
                                         <span class="zhedie iconfont cursor"
-                                            @click="item3.isSlide=true"
-                                            v-if="item3.childList&&item3.childList.length&&!item3.isSlide" >&#xe616;</span>
+                                            @click="item1.isSlide=true"
+                                            v-if="item1.childList&&item1.childList.length&&!item1.isSlide" >&#xe616;</span>
                                     </li>
-                                    <li class="t2"><input type="text" class="form-control english-name" v-model="item3.requestEnName" placeholder="参数名"></li>
-                                    <li class="t3"><input type="text" class="form-control" v-model="item3.requestCnName" placeholder="参数中文名"></li>
-                                    <li class="t5"><input type="text" class="form-control" v-model="item3.defaultVal" placeholder="参数的默认值"></li>
+                                    <li class="t2"><input readonly="true" type="text" class="form-control english-name" v-model="item1.requestEnName" placeholder="参数名"></li>
+                                    <li class="t3"><input readonly="true" type="text" class="form-control" v-model="item1.requestCnName" placeholder="参数中文名"></li>
+                                    <li class="t5"><input readonly="true" type="text" class="form-control" v-model="item1.defaultVal" placeholder="参数的默认值"></li>
                                     <li class="t6">
-                                        <textarea class="form-control" v-model="item3.explain" rows="1" placeholder="参数说明"></textarea>
+                                        <textarea readonly="true" class="form-control" v-model="item1.explain" rows="1" placeholder="参数说明"></textarea>
                                     </li>
                                     <li class="t7">
-                                        <select class="form-control" v-model="item3.type">
+                                        <select disabled="true" class="form-control" v-model="item1.type">
                                             <option value="int">int</option>
                                             <option value="string">string</option>
                                             <option value="boolean">boolean</option>
@@ -452,39 +429,144 @@
                                         </select>
                                     </li>
                                 </ul>
-                                <ul class="five-child" v-show="item3.isSlide" v-if="item3.childList&&item3.childList.length" v-for="(item4,i3) in item3.childList">
-                                    <li class="t1">
-                                       
-                                    </li>
-                                    <li class="t2"><input type="text" class="form-control english-name" v-model="item4.requestEnName" placeholder="参数名"></li>
-                                    <li class="t3"><input type="text" class="form-control" v-model="item4.requestCnName" placeholder="参数中文名"></li>
-                                    <li class="t5"><input type="text" class="form-control" v-model="item4.defaultVal" placeholder="参数的默认值"></li>
-                                    <li class="t6">
-                                        <textarea class="form-control" v-model="item4.explain" rows="1" placeholder="参数说明"></textarea>
-                                    </li>
-                                    <li class="t7">
-                                        <select class="form-control" v-model="item4.type">
-                                            <option value="int">int</option>
-                                            <option value="string">string</option>
-                                            <option value="boolean">boolean</option>
-                                            <option value="null">null</option>
-                                            <option value="undefined">undefined</option>
-                                            <option value="array">array</option>
-                                            <option value="array(object)">array(object)</option>
-                                            <option value="object">object</option>
-                                        </select>
-                                    </li>
-                                </ul>
+                                <div v-show="item1.isSlide" v-if="item1.childList&&item1.childList.length" v-for="(item2,i2) in item1.childList">
+                                    <ul class="three-child" >
+                                        <li class="t1">
+                                            <span class="zhedie iconfont cursor"
+                                                @click="item2.isSlide=false"
+                                                v-if="item2.childList&&item2.childList.length&&item2.isSlide"
+                                                >&#xe624;</span>
+                                            <span class="zhedie iconfont cursor"
+                                                @click="item2.isSlide=true"
+                                                v-if="item2.childList&&item2.childList.length&&!item2.isSlide" >&#xe616;</span>
+                                        </li>
+                                        <li class="t2"><input readonly="true" type="text" class="form-control english-name" v-model="item2.requestEnName" placeholder="参数名"></li>
+                                        <li class="t3"><input readonly="true" type="text" class="form-control" v-model="item2.requestCnName" placeholder="参数中文名"></li>
+                                        <li class="t5"><input readonly="true" type="text" class="form-control" v-model="item2.defaultVal" placeholder="参数的默认值"></li>
+                                        <li class="t6">
+                                            <textarea readonly="true" class="form-control" v-model="item2.explain" rows="1" placeholder="参数说明"></textarea>
+                                        </li>
+                                        <li class="t7">
+                                            <select disabled="true" class="form-control" v-model="item2.type">
+                                                <option value="int">int</option>
+                                                <option value="string">string</option>
+                                                <option value="boolean">boolean</option>
+                                                <option value="null">null</option>
+                                                <option value="undefined">undefined</option>
+                                                <option value="array">array</option>
+                                                <option value="array(object)">array(object)</option>
+                                                <option value="object">object</option>
+                                            </select>
+                                        </li>
+                                    </ul>
+                                    <div v-show="item2.isSlide" v-if="item2.childList&&item2.childList.length" v-for="(item3,i3) in item2.childList">
+                                        <ul class="four-child" >
+                                            <li class="t1">
+                                                <span class="zhedie iconfont cursor"
+                                                    @click="item3.isSlide=false"
+                                                    v-if="item3.childList&&item3.childList.length&&item3.isSlide"
+                                                    >&#xe624;</span>
+                                                <span class="zhedie iconfont cursor"
+                                                    @click="item3.isSlide=true"
+                                                    v-if="item3.childList&&item3.childList.length&&!item3.isSlide" >&#xe616;</span>
+                                            </li>
+                                            <li class="t2"><input readonly="true" type="text" class="form-control english-name" v-model="item3.requestEnName" placeholder="参数名"></li>
+                                            <li class="t3"><input readonly="true" type="text" class="form-control" v-model="item3.requestCnName" placeholder="参数中文名"></li>
+                                            <li class="t5"><input readonly="true" type="text" class="form-control" v-model="item3.defaultVal" placeholder="参数的默认值"></li>
+                                            <li class="t6">
+                                                <textarea readonly="true" class="form-control" v-model="item3.explain" rows="1" placeholder="参数说明"></textarea>
+                                            </li>
+                                            <li class="t7">
+                                                <select disabled="true" class="form-control" v-model="item3.type">
+                                                    <option value="int">int</option>
+                                                    <option value="string">string</option>
+                                                    <option value="boolean">boolean</option>
+                                                    <option value="null">null</option>
+                                                    <option value="undefined">undefined</option>
+                                                    <option value="array">array</option>
+                                                    <option value="array(object)">array(object)</option>
+                                                    <option value="object">object</option>
+                                                </select>
+                                            </li>
+                                        </ul>
+                                        <div v-show="item3.isSlide" v-if="item3.childList&&item3.childList.length" v-for="(item4,i4) in item3.childList">
+                                            <ul class="five-child">
+                                                <li class="t1">
+                                                    <span class="zhedie iconfont cursor"
+                                                        @click="item4.isSlide=false"
+                                                        v-if="item4.childList&&item4.childList.length&&item4.isSlide"
+                                                        >&#xe624;</span>
+                                                    <span class="zhedie iconfont cursor"
+                                                        @click="item4.isSlide=true"
+                                                        v-if="item4.childList&&item4.childList.length&&!item4.isSlide" >&#xe616;</span>
+                                                </li>
+                                                <li class="t2"><input readonly="true" type="text" class="form-control english-name" v-model="item4.requestEnName" placeholder="参数名"></li>
+                                                <li class="t3"><input readonly="true" type="text" class="form-control" v-model="item4.requestCnName" placeholder="参数中文名"></li>
+                                                <li class="t5"><input readonly="true" type="text" class="form-control" v-model="item4.defaultVal" placeholder="参数的默认值"></li>
+                                                <li class="t6">
+                                                    <textarea readonly="true" class="form-control" v-model="item4.explain" rows="1" placeholder="参数说明"></textarea>
+                                                </li>
+                                                <li class="t7">
+                                                    <select disabled="true" class="form-control" v-model="item4.type">
+                                                        <option value="int">int</option>
+                                                        <option value="string">string</option>
+                                                        <option value="boolean">boolean</option>
+                                                        <option value="null">null</option>
+                                                        <option value="undefined">undefined</option>
+                                                        <option value="array">array</option>
+                                                        <option value="array(object)">array(object)</option>
+                                                        <option value="object">object</option>
+                                                    </select>
+                                                </li>
+                                            </ul> 
+                                            <div v-show="item4.isSlide" v-if="item4.childList&&item4.childList.length" v-for="(item5,i5) in item4.childList"> 
+                                                <ul class="six-child">
+                                                    <li class="t1">
+                                                        <span class="zhedie iconfont cursor"
+                                                            @click="item5.isSlide=false"
+                                                            v-if="item5.childList&&item5.childList.length&&item5.isSlide"
+                                                            >&#xe624;</span>
+                                                        <span class="zhedie iconfont cursor"
+                                                            @click="item5.isSlide=true"
+                                                            v-if="item5.childList&&item5.childList.length&&!item5.isSlide" >&#xe616;</span>
+                                                    </li>
+                                                    <li class="t2"><input readonly="true" type="text" class="form-control english-name" v-model="item5.requestEnName" placeholder="参数名"></li>
+                                                    <li class="t3"><input readonly="true" type="text" class="form-control" v-model="item5.requestCnName" placeholder="参数中文名"></li>
+                                                    <li class="t5"><input readonly="true" type="text" class="form-control" v-model="item5.defaultVal" placeholder="参数的默认值"></li>
+                                                    <li class="t6">
+                                                        <textarea readonly="true" class="form-control" v-model="item5.explain" rows="1" placeholder="参数说明"></textarea>
+                                                    </li>
+                                                    <li class="t7">
+                                                        <select disabled="true" class="form-control" v-model="item5.type">
+                                                            <option value="int">int</option>
+                                                            <option value="string">string</option>
+                                                            <option value="boolean">boolean</option>
+                                                            <option value="null">null</option>
+                                                            <option value="undefined">undefined</option>
+                                                            <option value="array">array</option>
+                                                            <option value="array(object)">array(object)</option>
+                                                            <option value="object">object</option>
+                                                        </select>
+                                                    </li>
+                                                </ul>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="block">
+                <div class="top middlesize mb10 bold">返回参数对应JSON</div>
+                <div class="bottom" id="response">
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="block">
-        <div class="top middlesize mb10 bold">返回参数对应JSON</div>
-        <div class="bottom" id="response">
+        <div class="reshtml" v-if="datas.restype===2">
+            <div class="top middlesize bold">返回参数详情</div>
+            <textarea>{{datas.response}}</textarea>
         </div>
     </div>
     <hr class="mt50">
@@ -600,11 +682,11 @@
                         if(this.datas.request){
                             this.requestJs=JSON.parse(this.datas.request)
                         }
-                        if(this.datas.response){
-                            this.responseJs=JSON.parse(this.datas.response)
+                        if(this.datas.response&&this.datas.restype===1){
+                            this.responseJs=JSON.parse(this.datas.response);
+                            this.responseJson = util.chuliJsonToMe(this.responseJs);  
                         }
                         this.requestJson = JSON.parse(this.datas.requestjson);
-                        this.responseJson = util.chuliJsonToMe(this.responseJs);  
                         
                         $('#context').html(this.datas.html)
 
